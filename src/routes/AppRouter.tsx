@@ -11,6 +11,7 @@ import Login from "@/pages/Login/Login";
 import Dashboard from "@/pages/Dashboard/Dashboard";
 
 import ProtectedRoute from "./ProtectedRoute";
+import { Navigate } from "react-router-dom";
 
 
 export default function AppRouter(){
@@ -23,6 +24,12 @@ return (
 
 <Routes>
 
+<Route
+path="/"
+element={
+<Navigate to="/login" replace/>
+}
+/>
 
 <Route
 path="/login"
