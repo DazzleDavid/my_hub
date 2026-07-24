@@ -1,14 +1,8 @@
-import { Button } from "@/components/ui/button"
+import AppRouter from "./routes/AppRouter";
 
-function App() {
 
-  return (
-    <div className="text-3xl font-bold">
-      LifeOS
-      <Button>Click me</Button>
-    </div>
-  )
+export default function App(){
+
+  return <AppRouter/> 
 
 }
-
-export default App
