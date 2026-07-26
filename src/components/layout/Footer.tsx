@@ -18,7 +18,7 @@ export default function Footer() {
     <footer className="border-t bg-white">
       <div className="mx-auto max-w-5xl px-6 py-8 text-center">
 
-        <h2 style={{ fontFamily: "Noto Serif TC" }} className="text-lg font-bold">
+        <h2 style={{ fontFamily: "Noto Serif TC" }} className="text-lg font-black">
           J.D.I.哲哲
         </h2>
 
