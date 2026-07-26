@@ -21,7 +21,7 @@ export default function Dashboard() {
 
         await logout();
 
-        navigate("/login");
+        navigate("/");
 
     }
 

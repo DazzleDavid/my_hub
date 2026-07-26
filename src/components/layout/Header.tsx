@@ -4,6 +4,8 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
+import { loginWithGoogle } from "@/services/auth/authService";
+import { useNavigate } from "react-router-dom";
 
 const navItems = [
   {
@@ -36,6 +38,20 @@ const navItems = [
 export default function Header() {
   const [open, setOpen] = useState(false);
 
+  const navigate = useNavigate();
+
+    async function handleLogin(){
+        console.log("開始登入");
+
+        try{
+            await loginWithGoogle();
+            navigate("/dashboard");
+        }
+        catch(error){
+            console.error("登入失敗:", error);
+        }
+    }
+
   return (
     <>
       <header className="w-full border-b bg-white">
@@ -66,7 +82,7 @@ export default function Header() {
             }
 
 
-            <Button className="transition duration-300 hover:-translate-y-1 hover:shadow-md">
+            <Button className="transition duration-300 hover:-translate-y-1 hover:shadow-md" onClick={handleLogin}>
               Google 登入
             </Button>
 
@@ -140,7 +156,7 @@ export default function Header() {
           </nav>
 
 
-          <Button className="mt-8 w-full transition duration-300 hover:-translate-y-1 hover:shadow-md">
+          <Button className="mt-8 w-full transition duration-300 hover:-translate-y-1 hover:shadow-md" onClick={handleLogin}>
             Google 登入
           </Button>
 

@@ -4,8 +4,7 @@ import {
     Route,
 } from "react-router-dom";
 
-import Home from "@/pages/Home/Home";
-import Login from "@/pages/Login/Login";
+import Home from "@/pages/Home";
 import Dashboard from "@/pages/Dashboard/Dashboard";
 
 import ProtectedRoute from "./ProtectedRoute";
@@ -22,13 +21,7 @@ export default function AppRouter() {
                         <Home />
                     }
                 />
-
-                {/* 登入頁 */}
-                <Route
-                    path="/login"
-                    element={<Login />}
-                />
-
+                
                 {/* 管理後台 */}
                 <Route
                     path="/dashboard"
