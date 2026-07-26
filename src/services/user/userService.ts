@@ -17,7 +17,7 @@ from "firebase/auth";
 
 
 
-export async function createUserDocument(
+export async function createUserProfile(
     user:User
 ){
 

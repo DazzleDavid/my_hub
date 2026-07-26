@@ -13,7 +13,7 @@ from "../firebase/config";
 
 
 import {
-    createUserDocument
+    createUserProfile
 }
 from "../user/userService";
 
@@ -23,36 +23,20 @@ const provider =
 new GoogleAuthProvider();
 
 
-
-
 export async function loginWithGoogle(){
 
-
-    const result =
-    await signInWithPopup(
+    const result = await signInWithPopup(
         auth,
         provider
     );
 
+    console.log("Firebase User:", result.user);
 
-    const user =
-    result.user;
+    await createUserProfile(result.user);
 
-
-
-    await createUserDocument(user);
-
-
-
-    return user;
-
+    return result.user;
 }
 
-
-
-
 export async function logout(){
-
     await signOut(auth);
-
 }
