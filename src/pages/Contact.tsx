@@ -1,7 +1,7 @@
 import { FaInstagram, FaFacebook, FaGithub, FaLinkedin, FaLine } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { useState } from "react";
-import profile from "@/assets/images/profile.jpg";
+import profile from "@/assets/images/Profile.jpg";
 import { sendMessage } from "@/services/contact/contactService";
 
 const contacts = [
