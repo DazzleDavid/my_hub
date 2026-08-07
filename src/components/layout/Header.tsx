@@ -5,7 +5,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { loginWithGoogle } from "@/services/auth/authService";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const navItems = [
   {
@@ -71,13 +71,13 @@ export default function Header() {
 
             {
               navItems.map((item) => (
-                <a
+                <Link
                   key={item.name}
-                  href={item.path}
+                  to={item.path}
                   className="relative text-sm text-gray-600 transition duration-300 hover:text-black after:absolute after:-bottom-1 after:left-0 after:h-px after:w-0 after:bg-black after:transition-all after:duration-300 hover:after:w-full"
                 >
                   {item.name}
-                </a>
+                </Link>
               ))
             }
 

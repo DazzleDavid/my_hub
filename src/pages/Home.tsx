@@ -1,48 +1,202 @@
-import Footer from "@/components/layout/Footer";
-import Header from "@/components/layout/Header";
-import FeatureCard from "@/components/home/FeatureCard";
-import Hero from "@/components/home/Hero";
-import PreviewDashboard from "@/components/home/PreviewDashboard";
+import profile from "@/assets/images/profile.jpg";
+
 import {
-  CalendarDays,
-  CheckCircle,
-  ChartNoAxesColumn
+  Mail,
 } from "lucide-react";
 
+
+const skills = [
+  "C++",
+  "Python",
+  "React",
+  "TypeScript",
+  "Node.js",
+  "AI",
+  "LabVIEW",
+];
+
+
 export default function Home() {
+
   return (
-    <div className="min-h-screen bg-gray-50">
-      <Header />
+    <main
+      className="
+        mx-auto
+        flex
+        max-w-5xl
+        flex-col
+        items-center
+        px-6
+        py-20
+        text-center
+      "
+    >
 
-      <main className="w-full">
-        <Hero />
 
-        <section className="px-8 pb-20">
-          <div className="grid gap-6 md:grid-cols-3">
-            <FeatureCard
-              icon={CalendarDays}
-              title="行程管理"
-              description="管理每天的行程安排，掌握自己的時間。"
-            />
+      {/* 照片 */}
+      <img
+        src={profile}
+        alt="profile"
+        className="
+          h-40
+          w-40
+          rounded-full
+          object-cover
+          shadow-md
+        "
+      />
 
-            <FeatureCard
-              icon={CheckCircle}
-              title="任務追蹤"
-              description="紀錄待辦事項，追蹤完成進度。"
-            />
 
-            <FeatureCard
-              icon={ChartNoAxesColumn}
-              title="生活分析"
-              description="分析時間分配，了解自己的生活模式。"
-            />
-          </div>
-        </section>
 
-        <PreviewDashboard />
-      </main>
+      {/* 名字 */}
+      <h1
+        className="
+          mt-8
+          text-5xl
+          font-bold
+          text-gray-900
+        "
+      >
+        吳哲瑋
+      </h1>
 
-      <Footer />
-    </div>
+
+
+      {/* 身分 */}
+      <p
+        className="
+          mt-3
+          text-xl
+          text-gray-600
+        "
+      >
+        Computer Science and Information Engineering Master's student
+      </p>
+
+
+
+      {/* 作用名 / 職稱 */}
+      <p
+        className="
+          mt-2
+          text-lg
+          font-medium
+          text-gray-800
+        "
+      >
+        Just Do It. | Software Developer | AI Enthusiast
+      </p>
+
+
+
+
+      {/* 自我介紹 */}
+      <p
+        className="
+          mt-6
+          max-w-2xl
+          leading-relaxed
+          text-gray-500
+        "
+      >
+        目前專攻於資訊工程碩士，學習軟體設計與專案實踐，持續探索適合自己的工作模式。
+        <br />
+        我也熱愛攝影、閱讀與探索不同地方，透過觀察與學習累積經驗，拓展自己的視野。
+      </p>
+
+
+
+
+      {/* 社群 */}
+      <div
+        className="
+          mt-8
+          flex
+          gap-5
+        "
+      >
+
+        <a
+          href="#"
+          className="
+            rounded-full
+            border
+            p-3
+            transition
+            hover:bg-gray-100
+          "
+        >
+          <Mail size={22}/>
+        </a>
+
+
+        <a
+          href="#"
+          className="
+            rounded-full
+            border
+            p-3
+            transition
+            hover:bg-gray-100
+          "
+        >
+          <Mail size={22}/>
+        </a>
+
+
+        <a
+          href="#"
+          className="
+            rounded-full
+            border
+            p-3
+            transition
+            hover:bg-gray-100
+          "
+        >
+          <Mail size={22}/>
+        </a>
+
+
+      </div>
+
+
+
+
+
+      {/* Skills */}
+      <div
+        className="
+          mt-12
+          flex
+          flex-wrap
+          justify-center
+          gap-3
+        "
+      >
+
+        {
+          skills.map((skill)=>(
+            <span
+              key={skill}
+              className="
+                rounded-full
+                bg-gray-100
+                px-4
+                py-2
+                text-sm
+                text-gray-700
+              "
+            >
+              {skill}
+            </span>
+          ))
+        }
+
+      </div>
+
+
+
+    </main>
   );
 }

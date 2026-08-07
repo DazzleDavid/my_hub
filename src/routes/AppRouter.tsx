@@ -1,38 +1,29 @@
 import {
-    HashRouter,
-    Routes,
-    Route,
+  HashRouter,
+  Routes,
+  Route
 } from "react-router-dom";
-
 import Home from "@/pages/Home";
+import About from "@/pages/About";
 import Dashboard from "@/pages/Dashboard/Dashboard";
-
+import Footer from "@/components/layout/Footer";
+import Header from "@/components/layout/Header";
 import ProtectedRoute from "./ProtectedRoute";
 
 export default function AppRouter() {
-    return (
-        <HashRouter>
-            <Routes>
-
-                {/* 公開首頁 */}
-                <Route
-                    path="/"
-                    element={
-                        <Home />
-                    }
-                />
-                
-                {/* 管理後台 */}
-                <Route
-                    path="/dashboard"
-                    element={
-                        <ProtectedRoute>
-                            <Dashboard />
-                        </ProtectedRoute>
-                    }
-                />
-
-            </Routes>
-        </HashRouter>
-    );
+  return (
+    <HashRouter>
+      <div className="flex min-h-screen flex-col">
+        <Header />
+        <main className="flex-1">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+          </Routes>
+        </main>
+        <Footer />
+      </div>
+    </HashRouter>
+  );
 }
