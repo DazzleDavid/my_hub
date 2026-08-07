@@ -57,12 +57,12 @@ export default function Header() {
       <header className="w-full border-b bg-white">
         <div className="flex h-14 items-center justify-between px-6">
 
-          <a
-            href="/"
+          <Link
+            to="/"
             className="font-serif text-lg font-bold transition duration-300 hover:scale-105"
           >
             J.D.I.哲哲
-          </a>
+          </Link>
 
 
           {/* Desktop */}
