@@ -1,4 +1,4 @@
-import profile from "@/assets/images/profile.jpg";
+import profile from "@/assets/images/Profile.jpg";
 
 import {
   Mail,
