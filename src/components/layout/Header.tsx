@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { loginWithGoogle } from "@/services/auth/authService";
 import { Link, useNavigate } from "react-router-dom";
+import logo from "@/assets/logo.jpg";
 
 const navItems = [
   {
@@ -40,27 +41,25 @@ export default function Header() {
 
   const navigate = useNavigate();
 
-    async function handleLogin(){
-        console.log("開始登入");
+  async function handleLogin() {
+    console.log("開始登入");
 
-        try{
-            await loginWithGoogle();
-            navigate("/dashboard");
-        }
-        catch(error){
-            console.error("登入失敗:", error);
-        }
+    try {
+      await loginWithGoogle();
+      navigate("/dashboard");
     }
+    catch (error) {
+      console.error("登入失敗:", error);
+    }
+  }
 
   return (
     <>
       <header className="w-full border-b bg-white">
         <div className="flex h-14 items-center justify-between px-6">
 
-          <Link
-            to="/"
-            className="font-serif text-lg font-bold transition duration-300 hover:scale-105"
-          >
+          <Link to="/" className="flex items-center gap-2 font-serif text-lg font-bold transition duration-300 hover:scale-105">
+            <img src={logo} alt="J.D.I Logo" className="h-8 w-8 object-cover" />
             J.D.I.哲哲
           </Link>
 
@@ -118,12 +117,10 @@ export default function Header() {
           onClick={(e) => e.stopPropagation()}
         >
 
-          <a
-            href="/"
-            className="font-serif text-xl font-bold transition duration-300 hover:scale-105"
-          >
+          <Link to="/" className="flex items-center gap-2 font-serif text-xl font-bold transition duration-300 hover:scale-105" onClick={() => setOpen(false)}>
+            <img src={logo} alt="J.D.I Logo" className="h-10 w-10 object-cover" />
             J.D.I.哲哲
-          </a>
+          </Link>
 
 
           <nav className="mt-8 space-y-5">
