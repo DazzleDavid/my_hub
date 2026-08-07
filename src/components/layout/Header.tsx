@@ -127,9 +127,9 @@ export default function Header() {
 
             {
               navItems.map((item, index) => (
-                <a
+                <Link
                   key={item.name}
-                  href={item.path}
+                  to={item.path}
                   onClick={() => setOpen(false)}
                   className={`block rounded-lg p-2 transition-all duration-800 hover:translate-x-2 hover:bg-gray-100 hover:text-black ${open ? "translate-x-0 opacity-100" : "-translate-x-5 opacity-0"}`}
                   style={{
@@ -146,7 +146,7 @@ export default function Header() {
                     {item.description}
                   </div>
 
-                </a>
+                </Link>
               ))
             }
 
