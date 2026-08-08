@@ -6,6 +6,7 @@ import {
 import Home from "@/pages/Home";
 import About from "@/pages/About";
 import Contact from "@/pages/Contact";
+import NotFound from "@/pages/NotFound";
 import Dashboard from "@/pages/Dashboard/Dashboard";
 import Footer from "@/components/layout/Footer";
 import Header from "@/components/layout/Header";
@@ -18,6 +19,7 @@ export default function AppRouter() {
                 <Header />
                 <main className="flex-1">
                     <Routes>
+                        <Route path="*" element={<NotFound />} />
                         <Route path="/" element={<Home />} />
                         <Route path="/about" element={<About />} />
                         <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
