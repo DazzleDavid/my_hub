@@ -1,12 +1,12 @@
 import { useState } from "react";
 import profile from "@/assets/images/Profile.jpg";
 import LineModal from "@/components/LineModal";
-import { FaInstagram, FaFacebook, FaGithub, FaLinkedin, FaLine } from "react-icons/fa";
+import { FaInstagram, FaFacebook, FaGithub, FaLinkedin, FaLine, FaCamera } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 
 const contacts = [
   { name: "Instagram", account: "david.wu.9.9", link: "https://www.instagram.com/david.wu.9.9/", icon: FaInstagram },
-  { name: "Instagram", account: "_j.d.i.david_99", link: "https://www.instagram.com/_j.d.i.david_99/", icon: FaInstagram },
+  { name: "Instagram", account: "_j.d.i.david_99", link: "https://www.instagram.com/_j.d.i.david_99/", icon: FaCamera },
   { name: "Facebook", account: "吳哲瑋", link: "https://www.facebook.com/wu.zhe.wei.879096/", icon: FaFacebook },
   { name: "LINE", account: "吳哲瑋(J.D.I.哲哲)", isQrCode: true, icon: FaLine },
   { name: "GitHub", account: "DazzleDavid", link: "https://github.com/DazzleDavid", icon: FaGithub },
