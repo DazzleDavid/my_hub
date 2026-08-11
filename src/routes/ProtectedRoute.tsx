@@ -52,7 +52,7 @@ Loading...
 
 if(!user){
 
-return <Navigate to="/login"/>
+return <Navigate to="/"/>
 
 }
 

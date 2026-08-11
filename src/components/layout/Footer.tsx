@@ -13,7 +13,19 @@ const footerLinks = [
   }
 ];
 
-export default function Footer() {
+type FooterProps = {
+  compact?: boolean;
+};
+
+export default function Footer({ compact = false }: FooterProps) {
+  if (compact) {
+    return (
+      <footer className="font-serif border-t bg-white px-6 py-6 text-center text-sm text-gray-500">
+        © 2026 J.D.I.哲哲. All rights reserved.
+      </footer>
+    );
+  }
+
   return (
     <footer className="border-t bg-white">
       <div className="mx-auto max-w-5xl px-6 py-8 text-center">
