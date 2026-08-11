@@ -1,15 +1,15 @@
 const footerLinks = [
   {
     name: "Github",
-    url: "#"
+    url: "https://github.com/DazzleDavid"
   },
   {
     name: "Email",
-    url: "#"
+    url: "mailto:david700707@gmail.com"
   },
   {
     name: "LinkedIn",
-    url: "#"
+    url: "https://www.linkedin.com/in/%E5%93%B2%E7%91%8B-%E5%90%B3-b94a21427/"
   }
 ];
 
@@ -31,6 +31,8 @@ export default function Footer() {
             <div key={link.name} className="flex items-center gap-4">
               <a
                 href={link.url}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-gray-600 transition-all duration-300 hover:-translate-y-1 hover:text-black hover:underline"
               >
                 {link.name}

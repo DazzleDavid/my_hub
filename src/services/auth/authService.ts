@@ -1,27 +1,12 @@
 import {
-    GoogleAuthProvider,
-    signInWithPopup,
-    signOut
-}
-from "firebase/auth";
+  GoogleAuthProvider,
+  signInWithPopup,
+  signOut
+} from "firebase/auth";
+import { auth } from "@/services/firebase/config";
+import { createUserProfile } from "../user/userService";
 
-
-import {
-    auth
-}
-from "../firebase/config";
-
-
-import {
-    createUserProfile
-}
-from "../user/userService";
-
-
-
-const provider =
-new GoogleAuthProvider();
-
+const provider = new GoogleAuthProvider();
 
 export async function loginWithGoogle(){
 
