@@ -79,6 +79,15 @@ export default function Header() {
                       <p className="truncate text-sm font-semibold">{user.displayName}</p>
                       <p className="truncate text-xs text-gray-500">{user.email}</p>
                     </div>
+
+                    <Link
+                      to="/dashboard"
+                      onClick={() => setUserMenuOpen(false)}
+                      className="block px-4 py-3 text-left text-sm text-gray-700 transition hover:bg-gray-100"
+                    >
+                      Dashboard
+                    </Link>
+                    <div className="border-t border-gray-200" />
                     <button type="button" onClick={handleLogout} className="w-full px-4 py-3 text-left text-sm text-gray-700 transition hover:bg-gray-100">
                       登出
                     </button>
@@ -142,13 +151,26 @@ export default function Header() {
                 </button>
 
                 {userMenuOpen && (
-                  <button
-                    type="button"
-                    onClick={handleLogout}
-                    className="w-full rounded-lg px-4 py-3 text-left text-sm text-gray-700 transition hover:bg-gray-100"
-                  >
-                    登出
-                  </button>
+                  <div className="mt-2">
+                    <Link
+                      to="/dashboard"
+                      onClick={() => {
+                        setUserMenuOpen(false);
+                        setOpen(false);
+                      }}
+                      className="block rounded-lg px-4 py-3 text-left text-sm text-gray-700 transition hover:bg-gray-100"
+                    >
+                      Dashboard
+                    </Link>
+                    <div className="border-t border-gray-200" />
+                    <button
+                      type="button"
+                      onClick={handleLogout}
+                      className="w-full rounded-lg px-4 py-3 text-left text-sm text-gray-700 transition hover:bg-gray-100"
+                    >
+                      登出
+                    </button>
+                  </div>
                 )}
               </div>
             ) : (

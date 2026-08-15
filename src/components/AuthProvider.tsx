@@ -1,20 +1,20 @@
 import {
-useAuthListener
+    useAuthListener
 }
-from "../hooks/useAuthListener";
+    from "../hooks/useAuthListener";
 
 
 export default function AuthProvider(
-{
-children
-}:{
-children:React.ReactNode
-}
-){
+    {
+        children
+    }: {
+        children: React.ReactNode
+    }
+) {
 
-useAuthListener();
+    useAuthListener();
 
 
-return children;
+    return children;
 
 }
