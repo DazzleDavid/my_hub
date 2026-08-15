@@ -88,33 +88,36 @@ export default function MessageDetail({
           </button>
         </div>
 
-        {/* 訊息內容區 */}
-        <div className="flex-1 overflow-y-auto px-6 py-7">
-          <h2 className="text-2xl font-bold text-gray-900">
-            {message.subject}
-          </h2>
+        {/* 訊息內容區：改用 flex flex-col justify-between 讓時間貼在最底部 */}
+        <div className="flex flex-1 flex-col justify-between overflow-y-auto px-6 py-7">
+          <div>
+            <h2 className="text-2xl font-bold text-gray-900">
+              {message.subject}
+            </h2>
 
-          <div className="mt-6">
-            <p className="text-sm font-semibold text-gray-900">
-              {message.name}
+            <div className="mt-6">
+              <p className="text-sm font-semibold text-gray-900">
+                {message.name}
+              </p>
+
+              <a
+                href={`mailto:${message.email}`}
+                className="mt-1 inline-flex items-center gap-1 text-sm text-gray-500 transition hover:text-black hover:underline"
+              >
+                <Mail className="h-3.5 w-3.5" />
+                {message.email}
+              </a>
+            </div>
+
+            <div className="my-7 border-t" />
+
+            <p className="whitespace-pre-wrap leading-7 text-gray-700">
+              {message.message}
             </p>
-
-            <a
-              href={`mailto:${message.email}`}
-              className="mt-1 inline-flex items-center gap-1 text-sm text-gray-500 transition hover:text-black hover:underline"
-            >
-              <Mail className="h-3.5 w-3.5" />
-              {message.email}
-            </a>
           </div>
 
-          <div className="my-7 border-t" />
-
-          <p className="whitespace-pre-wrap leading-7 text-gray-700">
-            {message.message}
-          </p>
-
-          <p className="mt-10 text-sm text-gray-400">
+          {/* 時間：在內容區塊的最底部 */}
+          <p className="mt-8 text-sm text-gray-400">
             {dateText}
           </p>
         </div>
@@ -174,33 +177,36 @@ export default function MessageDetail({
         <p className="whitespace-pre-wrap leading-7 text-gray-700">
           {message.message}
         </p>
-
-        <p className="mt-8 text-sm text-gray-400">
-          {dateText}
-        </p>
       </div>
 
+      {/* 桌面版底部功能與時間區 */}
       <div className="border-t px-8 py-5">
-        <div className="flex justify-end gap-3">
-          <button
-            type="button"
-            disabled={loading}
-            onClick={toggleRead}
-            className="rounded-lg border px-4 py-2 text-sm text-gray-700 transition hover:bg-gray-100 disabled:opacity-50"
-          >
-            {message.status === "unread"
-              ? "標記已讀"
-              : "標記未讀"}
-          </button>
+        <div className="flex items-center justify-between">
+          <p className="text-sm text-gray-400">
+            {dateText}
+          </p>
 
-          <button
-            type="button"
-            disabled={loading}
-            onClick={handleDelete}
-            className="rounded-lg border border-red-200 px-4 py-2 text-sm text-red-600 transition hover:bg-red-50 disabled:opacity-50"
-          >
-            刪除
-          </button>
+          <div className="flex gap-3">
+            <button
+              type="button"
+              disabled={loading}
+              onClick={toggleRead}
+              className="rounded-lg border px-4 py-2 text-sm text-gray-700 transition hover:bg-gray-100 disabled:opacity-50"
+            >
+              {message.status === "unread"
+                ? "標記已讀"
+                : "標記未讀"}
+            </button>
+
+            <button
+              type="button"
+              disabled={loading}
+              onClick={handleDelete}
+              className="rounded-lg border border-red-200 px-4 py-2 text-sm text-red-600 transition hover:bg-red-50 disabled:opacity-50"
+            >
+              刪除
+            </button>
+          </div>
         </div>
       </div>
     </div>
