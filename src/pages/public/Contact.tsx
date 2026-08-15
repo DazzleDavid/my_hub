@@ -3,7 +3,7 @@ import { FaInstagram, FaFacebook, FaGithub, FaLinkedin, FaLine } from "react-ico
 import { MdEmail } from "react-icons/md";
 import profile from "@/assets/images/Profile.jpg";
 import LineModal from "@/components/LineModal";
-import { sendMessage } from "@/services/contact/contactService";
+import { sendMessage } from "@/services/contact/messageService";
 
 interface ContactType {
   name: string;

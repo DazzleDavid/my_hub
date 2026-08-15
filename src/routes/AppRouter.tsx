@@ -10,6 +10,7 @@ import About from "@/pages/public/About";
 import Contact from "@/pages/public/Contact";
 import NotFound from "@/pages/NotFound";
 import Dashboard from "@/pages/Admin/Dashboard";
+import Messages from "@/pages/Admin/Messages";
 
 export default function AppRouter() {
   return (
@@ -27,9 +28,10 @@ export default function AppRouter() {
 
         <Route element={<AdminLayout />}>
           <Route path="/dashboard" element={<Dashboard />} />
-          {/* <Route path="/admin/schedule" element={<Schedule />} /> */}
-          {/* <Route path="/admin/profile" element={<Profile />} /> */}
-          {/* <Route path="/admin/settings" element={<Settings />} /> */}
+          <Route path="/dashboard/messages" element={<Messages />} />
+          {/* <Route path="/dashboard/schedule" element={<Schedule />} /> */}
+          {/* <Route path="/dashboard/profile" element={<Profile />} /> */}
+          {/* <Route path="/dashboard/settings" element={<Settings />} /> */}
         </Route>
 
       </Routes>

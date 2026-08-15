@@ -14,7 +14,6 @@ export default function AdminLayout() {
     const [admin, setAdmin] = useState(false);
     const [loading, setLoading] = useState(true);
     const [sidebarOpen, setSidebarOpen] = useState(false);
-    const [activeMenu, setActiveMenu] = useState("總覽");
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
@@ -84,12 +83,10 @@ export default function AdminLayout() {
                 <AdminSidebar
                     sidebarOpen={sidebarOpen}
                     setSidebarOpen={setSidebarOpen}
-                    activeMenu={activeMenu}
-                    setActiveMenu={setActiveMenu}
                 />
                 <div className="flex min-w-0 flex-1 flex-col">
                     <main className="flex-1 bg-gray-50">
-                        <Outlet context={{ user, activeMenu }} />
+                        <Outlet />
                     </main>
                     <Footer compact />
                 </div>
