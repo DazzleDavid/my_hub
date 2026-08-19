@@ -4,6 +4,7 @@ import { MdEmail } from "react-icons/md";
 import profile from "@/assets/images/Profile.jpg";
 import LineModal from "@/components/LineModal";
 import { sendMessage } from "@/services/contact/messageService";
+import Calendar from "@/components/ui/Calendar";
 
 interface ContactType {
   name: string;
@@ -135,8 +136,8 @@ export default function Contact() {
           <br />
           顯示目前可安排的時間。
         </p>
-        <div className="mt-8 rounded-xl border p-10 text-gray-400">
-          Calendar Placeholder
+        <div className="mt-8 rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
+          <Calendar />
         </div>
       </section>
 

@@ -11,6 +11,8 @@ import Contact from "@/pages/public/Contact";
 import NotFound from "@/pages/NotFound";
 import Dashboard from "@/pages/Admin/Dashboard";
 import Messages from "@/pages/Admin/Messages";
+import CategoryManager from "@/components/admin/CategoryManager";
+import CalendarManager from "@/components/admin/CalendarManager";
 
 export default function AppRouter() {
   return (
@@ -29,9 +31,8 @@ export default function AppRouter() {
         <Route element={<AdminLayout />}>
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/dashboard/messages" element={<Messages />} />
-          {/* <Route path="/dashboard/schedule" element={<Schedule />} /> */}
-          {/* <Route path="/dashboard/profile" element={<Profile />} /> */}
-          {/* <Route path="/dashboard/settings" element={<Settings />} /> */}
+          <Route path="/dashboard/categories" element={<CategoryManager />} />
+          <Route path="/dashboard/events" element={<CalendarManager />} />
         </Route>
 
       </Routes>

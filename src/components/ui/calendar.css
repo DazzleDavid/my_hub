@@ -1,0 +1,548 @@
+/* ====================================================
+   設計系統 - 米黃與深焦糖高對比主題 (完整一致 + RWD 版)
+   ==================================================== */
+:root {
+  --bg-calendar: #fcf9f2;        /* 行事曆米黃底色 */
+  --bg-card: #ffffff;            /* 純白卡片/視窗背景 */
+  --bg-rail: #e6ded0;            /* 軌道/按鈕底色 */
+  
+  --primary-accent: #b85d19;     /* 主色：深焦糖橘 */
+  --primary-accent-hover: #9c4c11;
+  --text-main: #2b231d;          /* 高對比深褐字 */
+  --text-muted: #6e645a;         /* 次要文字 */
+  
+  --btn-bg: #e6ded0;             /* 未選中按鈕背景 */
+  --btn-hover-bg: #d9d0c0;       /* 懸停背景 */
+
+  --event-bg: #fff5eb;           /* 事件背景 */
+  --event-border: #d97724;       /* 事件標籤邊框 */
+  --event-text: #6b350b;
+}
+
+/* ====================================================
+   1. 外層容器
+   ==================================================== */
+.modern-calendar-container {
+  background: var(--bg-calendar);
+  border-radius: 20px;
+  padding: 28px;
+  border: 2px solid #e3d9c6;
+  box-shadow: 0 10px 30px -5px rgba(43, 35, 29, 0.08);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: var(--text-main);
+}
+
+/* ====================================================
+   2. 網格邊框與標題
+   ==================================================== */
+.modern-calendar-container .fc-theme-standard td,
+.modern-calendar-container .fc-theme-standard th,
+.modern-calendar-container .fc-theme-standard .fc-scrollgrid {
+  border-color: #ebd3a7 !important;
+}
+
+.modern-calendar-container .fc-timegrid-slot-minor {
+  border-top-style: none !important;
+}
+
+.modern-calendar-container .fc-timegrid-slot-label-cushion {
+  white-space: nowrap !important;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.modern-calendar-container .fc-toolbar-title {
+  font-size: 1.4rem !important;
+  font-weight: 800 !important;
+  color: var(--text-main);
+}
+
+/* ====================================================
+   3. 左側按鈕區 (<, >, 今天)
+   ==================================================== */
+.modern-calendar-container .fc-toolbar-chunk:first-child {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.modern-calendar-container .fc-toolbar-chunk:first-child .fc-button-group {
+  position: static !important;
+  background-color: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  box-shadow: none !important;
+  gap: 8px !important;
+}
+
+.modern-calendar-container .fc-toolbar-chunk:first-child .fc-button-group::before {
+  display: none !important;
+}
+
+.modern-calendar-container .fc-prev-button,
+.modern-calendar-container .fc-next-button,
+.modern-calendar-container .fc-today-button {
+  background-color: var(--btn-bg) !important;
+  border: none !important;
+  color: var(--text-main) !important;
+  font-weight: 700 !important;
+  font-size: 0.9rem !important;
+  border-radius: 8px !important;
+  padding: 6px 14px !important;
+  box-shadow: none !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  height: 36px !important;
+  margin: 0 !important;
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  cursor: pointer;
+}
+
+.modern-calendar-container .fc-prev-button:hover,
+.modern-calendar-container .fc-next-button:hover,
+.modern-calendar-container .fc-today-button:hover {
+  background-color: var(--btn-hover-bg) !important;
+  color: var(--primary-accent) !important;
+}
+
+.modern-calendar-container .fc-prev-button:active,
+.modern-calendar-container .fc-next-button:active,
+.modern-calendar-container .fc-today-button:active {
+  background-color: var(--primary-accent) !important;
+  color: #ffffff !important;
+  transform: scale(0.95);
+}
+
+/* ====================================================
+   4. 右側 Segmented Rail (月/週/日) - 絕對居中對齊
+   ==================================================== */
+.modern-calendar-container .fc-toolbar-chunk:last-child .fc-button-group {
+  position: relative;
+  display: flex !important;
+  align-items: center !important;
+  background-color: var(--bg-rail);
+  border: none;
+  padding: 4px;
+  border-radius: 12px;
+  width: 220px;
+  height: 36px !important;
+  box-sizing: border-box;
+  gap: 0 !important;
+  --i: 0;
+}
+
+.modern-calendar-container .fc-toolbar-chunk:last-child .fc-button-group > .fc-button {
+  flex: 1 1 0% !important;
+  background: transparent !important;
+  border: none !important;
+  color: var(--text-muted) !important;
+  font-weight: 700;
+  font-size: 0.9rem;
+  padding: 0 !important;
+  margin: 0 !important;
+  border-radius: 8px !important;
+  position: relative;
+  z-index: 2;
+  box-shadow: none !important;
+  outline: none !important;
+  
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  height: 28px !important;
+  line-height: 1 !important;
+  
+  transition: color 0.2s ease;
+  cursor: pointer;
+}
+
+.modern-calendar-container .fc-toolbar-chunk:last-child .fc-button-group > .fc-button-active {
+  color: #ffffff !important;
+}
+
+.modern-calendar-container .fc-toolbar-chunk:last-child .fc-button-group > .fc-button:not(.fc-button-active):hover {
+  color: var(--text-main) !important;
+}
+
+/* 動態滑動膠囊 */
+.modern-calendar-container .fc-toolbar-chunk:last-child .fc-button-group::before {
+  content: "";
+  display: block !important;
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  left: 4px;
+  width: calc((100% - 8px) / 3);
+  height: 28px;
+  background-color: var(--primary-accent);
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(184, 93, 25, 0.3);
+  z-index: 1;
+  transform: translateX(calc(var(--i) * 100%));
+  transition: transform 0.28s cubic-bezier(0.34, 1.2, 0.64, 1);
+}
+
+.modern-calendar-container .fc-toolbar-chunk:last-child .fc-button-group:has(.fc-button:nth-child(1).fc-button-active) { --i: 0; }
+.modern-calendar-container .fc-toolbar-chunk:last-child .fc-button-group:has(.fc-button:nth-child(2).fc-button-active) { --i: 1; }
+.modern-calendar-container .fc-toolbar-chunk:last-child .fc-button-group:has(.fc-button:nth-child(3).fc-button-active) { --i: 2; }
+
+/* ====================================================
+   5. 通用日期與月檢視樣式
+   ==================================================== */
+.modern-calendar-container .fc-col-header-cell-cushion {
+  color: var(--text-main);
+  font-weight: 700;
+  font-size: 0.9rem;
+  padding: 10px 0 !important;
+  text-decoration: none !important;
+}
+
+.modern-calendar-container .fc-daygrid-day-top {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  padding: 4px 8px !important;
+  height: 28px !important;
+  box-sizing: border-box !important;
+}
+
+.modern-calendar-container .fc-daygrid-day-number {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text-main);
+  padding: 0 !important;
+  margin: 0 !important;
+  line-height: 28px !important;
+  text-decoration: none !important;
+}
+
+.modern-calendar-container .fc-daygrid-day:hover {
+  background-color: #f5eedf !important;
+  transition: background-color 0.15s ease;
+  cursor: pointer;
+}
+
+.modern-calendar-container .fc-day-today {
+  background-color: rgba(184, 93, 25, 0.08) !important;
+}
+
+.modern-calendar-container .fc-day-today .fc-daygrid-day-number {
+  background-color: var(--primary-accent);
+  color: #ffffff !important;
+  border-radius: 50%;
+  width: 24px !important;
+  height: 24px !important;
+  line-height: 24px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin: 0 !important;
+  box-shadow: 0 2px 6px rgba(184, 93, 25, 0.3);
+}
+
+.modern-calendar-container .fc-daygrid-event-harness {
+  margin-top: 4px !important;
+  margin-bottom: 2px !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+.modern-calendar-container .fc-daygrid-event {
+  background-color: var(--event-bg) !important;
+  border-left: 3px solid var(--event-border) !important;
+  border-top: none !important;
+  border-right: none !important;
+  border-bottom: none !important;
+  border-radius: 4px !important;
+  
+  height: 24px !important;
+  line-height: 24px !important;
+  padding: 0 6px !important;
+  margin: 0 !important;
+  box-sizing: border-box !important;
+  
+  display: flex !important;
+  align-items: center !important;
+  width: 100% !important;
+  cursor: pointer;
+}
+
+.modern-calendar-container .fc-daygrid-event:hover {
+  background-color: #fcebd9 !important;
+}
+
+.modern-calendar-container .fc-daygrid-event .fc-event-main,
+.modern-calendar-container .fc-daygrid-event .fc-event-title,
+.modern-calendar-container .fc-daygrid-event .fc-event-time {
+  color: var(--event-text) !important;
+  font-size: 0.78rem !important;
+  font-weight: 700 !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  opacity: 1 !important;
+}
+
+/* ====================================================
+   6. 週 (timeGridWeek) 與 日 (timeGridDay) 專屬美化
+   ==================================================== */
+.modern-calendar-container .fc-timegrid-event {
+  background-color: var(--event-bg) !important;
+  border: 1px solid rgba(217, 119, 36, 0.2) !important;
+  border-left: 4px solid var(--event-border) !important;
+  border-radius: 6px !important;
+  box-shadow: 0 2px 6px rgba(43, 35, 29, 0.05) !important;
+  padding: 4px 6px !important;
+}
+
+.modern-calendar-container .fc-timegrid-event:hover {
+  background-color: #fcebd9 !important;
+  box-shadow: 0 4px 10px rgba(184, 93, 25, 0.15) !important;
+}
+
+.modern-calendar-container .fc-timegrid-event .fc-event-time,
+.modern-calendar-container .fc-timegrid-event .fc-event-title {
+  color: var(--event-text) !important;
+  font-weight: 700 !important;
+  font-size: 0.8rem !important;
+}
+
+.modern-calendar-container .fc-timegrid-axis-cushion,
+.modern-calendar-container .fc-timegrid-slot-label-cushion {
+  color: var(--text-muted) !important;
+  font-weight: 700;
+}
+
+.modern-calendar-container .fc-timegrid .fc-day-today .fc-col-header-cell-cushion {
+  color: var(--primary-accent) !important;
+}
+
+.modern-calendar-container .fc-timegrid-col.fc-day-today {
+  background-color: rgba(184, 93, 25, 0.03) !important;
+}
+
+.modern-calendar-container .fc-timegrid .fc-daygrid-body .fc-day-today {
+  background-color: transparent !important;
+}
+
+/* ====================================================
+   7. 獨立彈出視窗 (Modal Pop-up) & RWD 強化
+   ==================================================== */
+.calendar-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(43, 35, 29, 0.4);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 16px;
+  box-sizing: border-box;
+  animation: fadeIn 0.2s ease-out;
+}
+
+.calendar-modal-content {
+  background: var(--bg-card);
+  border: 2px solid #e3d9c6;
+  width: 100%;
+  max-width: 440px;
+  max-height: 90vh;
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 20px 40px -10px rgba(43, 35, 29, 0.2);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: popUp 0.25s cubic-bezier(0.34, 1.3, 0.64, 1);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  border-bottom: 1.5px solid var(--bg-rail);
+  padding-bottom: 12px;
+}
+
+.modal-header h3 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--text-main);
+}
+
+.close-btn {
+  background: var(--bg-rail);
+  border: none;
+  font-size: 1rem;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  color: var(--text-main);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+}
+
+.close-btn:hover {
+  background: var(--primary-accent);
+  color: #ffffff;
+}
+
+.modal-body-styled {
+  padding: 8px 0;
+  overflow-y: auto;
+  flex: 1;
+}
+
+/* 資訊網格排版 */
+.info-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #fdfbf7;
+  padding: 10px 16px;
+  border-radius: 12px;
+  border: 1px solid #f0e6d8;
+}
+
+.info-label {
+  font-size: 0.9rem;
+  color: #7a6e65;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.info-value {
+  font-size: 0.95rem;
+  color: #3d352e;
+  font-weight: 500;
+}
+
+/* 行程類型膠囊標籤 */
+.category-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3px 16px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  border-radius: 999px;
+  letter-spacing: 0.5px;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+.desc-item {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+.desc-value {
+  text-align: left;
+  white-space: pre-wrap;
+  color: #574d44;
+  line-height: 1.5;
+  width: 100%;
+}
+
+.modal-footer {
+  margin-top: 16px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.primary-btn {
+  background-color: var(--primary-accent) !important;
+  color: white !important;
+  border: none !important;
+  padding: 10px 22px !important;
+  border-radius: 10px !important;
+  font-weight: 700 !important;
+  cursor: pointer;
+  box-shadow: 0 3px 8px rgba(184, 93, 25, 0.3) !important;
+  transition: background-color 0.15s ease;
+}
+
+.primary-btn:hover {
+  background-color: var(--primary-accent-hover) !important;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes popUp {
+  from { opacity: 0; transform: scale(0.92); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* ====================================================
+   8. 行動端 RWD 斷點處理 (Mobile < 640px)
+   ==================================================== */
+@media (max-width: 640px) {
+  .modern-calendar-container {
+    padding: 16px;
+    border-radius: 14px;
+  }
+
+  /* 頂部工具列垂直堆疊 */
+  .modern-calendar-container .fc-toolbar {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .modern-calendar-container .fc-toolbar-chunk {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .modern-calendar-container .fc-toolbar-title {
+    font-size: 1.2rem !important;
+  }
+
+  /* Modal 尺寸微調 */
+  .calendar-modal-content {
+    padding: 16px;
+    border-radius: 16px;
+  }
+
+  .modal-header h3 {
+    font-size: 1.1rem;
+  }
+
+  .info-item {
+    padding: 8px 12px;
+  }
+
+  .info-label,
+  .info-value {
+    font-size: 0.88rem;
+  }
+
+  .category-badge {
+    padding: 2px 12px;
+    font-size: 0.82rem;
+  }
+
+  .primary-btn {
+    width: 100%;
+    padding: 12px !important;
+  }
+}

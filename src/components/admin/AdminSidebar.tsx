@@ -16,6 +16,11 @@ const menuItems = [
     path: "/dashboard",
   },
   {
+    name: "類別管理",
+    icon: LayoutDashboard,
+    path: "/dashboard/categories",
+  },
+  {
     name: "行程管理",
     icon: CalendarDays,
     path: "/dashboard/events",
