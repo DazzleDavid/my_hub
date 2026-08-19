@@ -2,6 +2,35 @@ import React, { useEffect, useState } from "react";
 import type { EventCategory } from "@/types/calendar";
 import * as calendarServiceModule from "@/services/calendar/calendarService";
 
+// 1. 產生 20 位長的大大小寫英數字純隨機字串 (如: jXtXpbPRfLwU5Jg6MsAN)
+const generateRandomId = (length = 20) => {
+  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  let autoId = "";
+  for (let i = 0; i < length; i++) {
+    autoId += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+  return autoId;
+};
+
+// 2. 隨機色彩庫
+const PRESET_COLORS = [
+  "#d97724", // 經典暖橘
+  "#2563eb", // 藍色
+  "#059669", // 翡翠綠
+  "#7c3aed", // 紫色
+  "#db2777", // 桃粉紅
+  "#ea580c", // 亮橘色
+  "#0891b2", // 青藍色
+  "#4d7c0f", // 橄欖綠
+  "#be123c", // 玫瑰紅
+  "#4b5563", // 質感灰
+];
+
+const getRandomColor = () => {
+  const randomIndex = Math.floor(Math.random() * PRESET_COLORS.length);
+  return PRESET_COLORS[randomIndex];
+};
+
 export default function CategoryManager() {
   const [categories, setCategories] = useState<EventCategory[]>([]);
   const [loading, setLoading] = useState(true);
@@ -10,20 +39,24 @@ export default function CategoryManager() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
 
-  // 表單資料狀態：包含 name (內部代碼) 與 displayName (對外顯示)
+  // 表單資料狀態 (包含獨立序號 order)
   const [formData, setFormData] = useState({
     id: "",
+    order: 1,
     name: "",
     displayName: "",
-    color: "#d97724",
+    color: PRESET_COLORS[0],
   });
 
-  // 1. 初始化讀取所有類別
+  // 1. 初始化讀取所有類別 (依序號 order 排序)
   const fetchCategories = async () => {
     try {
       setLoading(true);
       const catsMap = await calendarServiceModule.getCategories();
-      setCategories(Object.values(catsMap));
+      const sortedCats = Object.values(catsMap).sort(
+        (a, b) => (a.order ?? 99) - (b.order ?? 99)
+      );
+      setCategories(sortedCats);
     } catch (err) {
       console.error("載入類別失敗:", err);
     } finally {
@@ -35,14 +68,21 @@ export default function CategoryManager() {
     fetchCategories();
   }, []);
 
-  // 2. 開啟新增 Modal
+  // 2. 開啟新增 Modal (產生純隨機 ID + 計算下一個序號)
   const handleOpenCreateModal = () => {
     setIsEditing(false);
+    
+    // 計算預設下一個序號
+    const nextOrder = categories.length > 0
+      ? Math.max(...categories.map((c) => c.order || 0)) + 1
+      : 1;
+
     setFormData({
-      id: "",
+      id: generateRandomId(20),
+      order: nextOrder,
       name: "",
       displayName: "",
-      color: "#d97724",
+      color: getRandomColor(),
     });
     setIsModalOpen(true);
   };
@@ -52,9 +92,10 @@ export default function CategoryManager() {
     setIsEditing(true);
     setFormData({
       id: cat.id,
+      order: cat.order ?? 1,
       name: cat.name || "",
       displayName: cat.displayName || cat.name || "",
-      color: cat.color || "#d97724",
+      color: cat.color || getRandomColor(),
     });
     setIsModalOpen(true);
   };
@@ -63,7 +104,7 @@ export default function CategoryManager() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.id.trim() || !formData.name.trim() || !formData.displayName.trim()) {
-      alert("請填寫完整類別 ID、內部代碼與對外顯示名稱");
+      alert("請填寫完整內部代碼與對外顯示名稱");
       return;
     }
 
@@ -105,6 +146,7 @@ export default function CategoryManager() {
         <table className="w-full text-left text-sm text-gray-600">
           <thead className="bg-gray-50 text-xs uppercase text-gray-700">
             <tr>
+              <th className="px-6 py-3 w-16">序號</th>
               <th className="px-6 py-3">類別 ID</th>
               <th className="px-6 py-3">內部代碼/名稱</th>
               <th className="px-6 py-3">對外顯示名稱</th>
@@ -115,13 +157,14 @@ export default function CategoryManager() {
           <tbody className="divide-y divide-gray-200">
             {categories.length === 0 ? (
               <tr>
-                <td colSpan={5} className="px-6 py-8 text-center text-gray-400">
+                <td colSpan={6} className="px-6 py-8 text-center text-gray-400">
                   目前無任何類別資料
                 </td>
               </tr>
             ) : (
               categories.map((cat) => (
                 <tr key={cat.id} className="hover:bg-gray-50">
+                  <td className="px-6 py-4 font-bold text-gray-500">{cat.order ?? "-"}</td>
                   <td className="px-6 py-4 font-mono font-medium text-gray-900">{cat.id}</td>
                   <td className="px-6 py-4 font-mono text-gray-700">{cat.name}</td>
                   <td className="px-6 py-4 font-medium text-gray-900">{cat.displayName}</td>
@@ -158,18 +201,29 @@ export default function CategoryManager() {
             </h2>
 
             <form onSubmit={handleSubmit} className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700">類別 ID *</label>
-                <input
-                  type="text"
-                  required
-                  disabled={isEditing}
-                  value={formData.id}
-                  onChange={(e) => setFormData({ ...formData, id: e.target.value })}
-                  className="mt-1 w-full rounded-lg border p-2.5 font-mono text-sm outline-none focus:border-black disabled:bg-gray-100 disabled:text-gray-500"
-                  placeholder="例如：work / personal / meeting"
-                />
-                <p className="mt-1 text-xs text-gray-400">寫入 Firestore 做為文件的唯一 Key</p>
+              {/* 序號與 ID 併排 */}
+              <div className="flex gap-3">
+                <div className="w-24">
+                  <label className="block text-sm font-medium text-gray-700">序號 *</label>
+                  <input
+                    type="number"
+                    required
+                    min={1}
+                    value={formData.order}
+                    onChange={(e) => setFormData({ ...formData, order: Number(e.target.value) })}
+                    className="mt-1 w-full rounded-lg border p-2.5 text-sm outline-none focus:border-black"
+                  />
+                </div>
+                <div className="flex-1">
+                  <label className="block text-sm font-medium text-gray-700">類別 ID (隨機唯讀)</label>
+                  <input
+                    type="text"
+                    required
+                    disabled
+                    value={formData.id}
+                    className="mt-1 w-full rounded-lg border p-2.5 font-mono text-xs outline-none bg-gray-100 text-gray-500 cursor-not-allowed"
+                  />
+                </div>
               </div>
 
               <div>
@@ -182,7 +236,6 @@ export default function CategoryManager() {
                   className="mt-1 w-full rounded-lg border p-2.5 font-mono text-sm outline-none focus:border-black"
                   placeholder="例如：meeting_internal"
                 />
-                <p className="mt-1 text-xs text-gray-400">供管理員在後台識別用</p>
               </div>
 
               <div>
@@ -195,11 +248,19 @@ export default function CategoryManager() {
                   className="mt-1 w-full rounded-lg border p-2.5 outline-none focus:border-black"
                   placeholder="例如：工作/會議"
                 />
-                <p className="mt-1 text-xs text-gray-400">顯示給一般訪客看的名字</p>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700">主題顏色</label>
+                <div className="flex items-center justify-between">
+                  <label className="block text-sm font-medium text-gray-700">主題顏色</label>
+                  <button
+                    type="button"
+                    onClick={() => setFormData({ ...formData, color: getRandomColor() })}
+                    className="text-xs text-blue-600 hover:text-blue-800"
+                  >
+                    🎲 隨機換色
+                  </button>
+                </div>
                 <div className="mt-1 flex items-center gap-3">
                   <input
                     type="color"

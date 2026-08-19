@@ -1,9 +1,10 @@
 // 1. 行程類別型別
 export interface EventCategory {
   id: string;
-  name: string;        // 內部識別碼/代碼 (例如："meeting_internal")
   displayName: string; // 對外顯示名稱 (例如："工作/會議")
+  name: string;        // 內部識別碼/代碼 (例如："meeting_internal")
   color?: string;      // 自訂顏色標籤
+  order?: number;      // 排序序號 (新增此欄位)
 }
 
 // 2. 行程資料型別 (寫入 Firestore 用)
